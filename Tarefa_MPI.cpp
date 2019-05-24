@@ -79,6 +79,7 @@ int main(int argc, char **argv) {
         MPI_Bcast(matrix, n*n, MPI_INT, 0, MPI_COMM_WORLD);
         MPI_Bcast(&n, 1, MPI_INT, 0, MPI_COMM_WORLD);
 
+        //divide em apenas dois processos
         for (int e = (r-1)*((n/w)+1); e < ((r+1)*((n/w)+1)>n?n:(r)*((n/w)+1)); e++){
             // Determinante por Laplace
             std::cout << "RANK " << r << " FAZENDO " << e << std::endl;
