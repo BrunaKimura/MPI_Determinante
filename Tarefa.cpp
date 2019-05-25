@@ -1,5 +1,6 @@
 #include <iostream>
 #include <cmath>
+#include <time.h>
 
 int determinant(int a[], int n, int e){
 
@@ -45,9 +46,12 @@ int determinant(int a[], int n, int e){
 }
 
 int main(int argc, char **argv) {
+    
+    clock_t start_time;
+    double run_time;
 
-    int n = 5;
     int sum = 0;
+    int n = 5;
 
     int matrix[n*n] = {3,  1, -2,  1, 1,
                        5,  2,  2,  3, 2,
@@ -55,12 +59,18 @@ int main(int argc, char **argv) {
                        1, -1, 11,  2, 4,
                        1,  2,  3,  4, 5};
 
+    
+    start_time = clock();
+
     // Determinante por Laplace
     for (int e = 0; e<n; e++){
         sum+=determinant(matrix, n, e);
     }
 
-    std::cout << sum << std::endl;
+    run_time = (double)(clock() - start_time)/CLOCKS_PER_SEC;
+    std::cout << "Tempo decorrido do Determinante: " << run_time << "s" << std::endl;
+
+    std::cout << "Determinante = " << sum << std::endl;
     
     return 0;
 }

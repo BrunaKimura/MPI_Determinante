@@ -2,6 +2,7 @@
 #include <string.h>
 #include <iostream>
 #include <cmath>
+#include <time.h>
 
 int determinant(int a[], int n, int e){
 
@@ -55,6 +56,9 @@ int main(int argc, char **argv) {
     int r = world_rank;
     int w = world_size;
 
+    clock_t start_time;
+    double run_time;
+
     int n = 5;
     int sum = 0;
     int sum_tmp = 0;
@@ -65,6 +69,8 @@ int main(int argc, char **argv) {
                        1, -1, 11,  2, 4,
                        1,  2,  3,  4, 5};
 
+    start_time = clock();
+
     if (world_rank==0){
 
         MPI_Bcast(matrix, n*n, MPI_INT, 0, MPI_COMM_WORLD);
@@ -72,7 +78,10 @@ int main(int argc, char **argv) {
 
         MPI_Reduce(&sum_tmp, &sum, 1,  MPI_INT, MPI_SUM, 0, MPI_COMM_WORLD);
 
-        std::cout << sum << std::endl;
+        run_time = (double)(clock() - start_time)/CLOCKS_PER_SEC;
+        std::cout << "Tempo decorrido do Determinante: " << run_time << "s" << std::endl;
+
+        std::cout << "Determinante = " << sum << std::endl;
     }
     else{  //processos = 3
 
@@ -82,13 +91,13 @@ int main(int argc, char **argv) {
         //divide em apenas dois processos
         for (int e = (r-1)*((n/w)+1); e < ((r+1)*((n/w)+1)>n?n:(r)*((n/w)+1)); e++){
             // Determinante por Laplace
-            std::cout << "RANK " << r << " FAZENDO " << e << std::endl;
             sum_tmp+=determinant(matrix, n, e);
         }
         
         MPI_Reduce(&sum_tmp, &sum, 1,  MPI_INT, MPI_SUM, 0, MPI_COMM_WORLD);
 
     }
+
     MPI_Finalize();
     
     return 0;
