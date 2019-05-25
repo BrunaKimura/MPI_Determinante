@@ -72,9 +72,18 @@ Onde o número é a quantidade de processos, incluindo a mestra.
 
 Para o cálculo do desempenho, foi medido o tempo de execução de cada código com diversos tamanho de matrizes. A função utilizada para marcar o tempo foi a biblioteca `<time.h>`. O tempo foi marcado logo antes de começar o cálculo e finalizado ao terminar de fazer a somatória da determinante.
 
+O cálculo foi feito para matrizes de 5x5 à 10x10. O gráfico de tempo por tamanho com resultado pode ser visto abaixo.
+![matriz](img/Tarefa_e_Tarefa_MPI.png)
+
+O eixo y é o tempo gasto na execução, já o eixo x tráz o tamanho da matriz executada. A linha azul é o calculo da matriz simples e a linha vermelha é a execução com o código distribuido. 
+
 ## Conclusão
 
+É possível notar que não houve uma grande diferença na execução dos dois métodos. Para matrizes de tamanho menor ocorre uma diferença um pouco maior em comparação ao seu desempenho em marizes maiores. Ambos os códigos aumentam o tempo logaritmicamente.
 
+Para matrizes menores o tempo de execussão foi bastante baixo, quase insignificante. Enquanto para matrizes maiores que 10 a execussão ficou muito lenta não sendo possível fazer a análise, uma vez, que não deu tempo de executá-las.
+
+Utilizar a distribuição é bastante interessante, porém neste caso onde dividiu-se apenas em dois processos não houveram grandes ganhos de desempenhos. Talvez, com matrizes maiores e com mais processos o resultado teria sido bastante surpreendente.
 
 ## Melhorias futuras
 

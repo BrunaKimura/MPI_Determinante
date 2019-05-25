@@ -69,6 +69,7 @@ int main(int argc, char **argv) {
                        1, -1, 11,  2, 4,
                        1,  2,  3,  4, 5};
 
+
     start_time = clock();
 
     if (world_rank==0){
